@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <!-- Meta data -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ATC Store</title>
+
+    <!-- External style links -->
+    <link
+      rel="shortcut icon"
+      type="image/icon"
+      href="./BrandPics/faviconcar.jpg"
+    />
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/css/linearicons.css" />
+    <link rel="stylesheet" href="assets/css/flaticon.css" />
+    <link rel="stylesheet" href="assets/css/animate.css" />
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/bootsnav.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+
+    <!-- Custom styles for search and product uniformity -->
+    <style>
+      .search-bar {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        max-width: 100%;
+        align-items: center;
+        padding: 10px;
+        border: 1px solid #ddd;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .search-bar input,
+      .search-bar select {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        flex-grow: 1;
+      }
+
+      .search-bar input {
+        flex-grow: 2;
+        transition: all 0.3s ease;
+      }
+
+      .search-bar select {
+        background-color: #f8f9fa;
+        cursor: pointer;
+      }
+
+      .search-bar button {
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .search-bar button:hover {
+        background-color: #0056b3;
+      }
+
+      .featured-img-box img {
+        width: 100%;
+        height: 150px;
+        object-fit: contain;
+        border-radius: 5px;
+        background-color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation bar -->
+    <nav
+      class="navbar navbar-default bootsnav navbar-sticky navbar-scrollspy"
+      data-minus-value-desktop="70"
+      data-minus-value-mobile="55"
+      data-speed="1000"
+      style="background-color: black"
+    >
+      <div class="container">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle"
+            data-toggle="collapse"
+            data-target="#navbar-menu"
+          >
+            <i class="fa fa-bars"></i>
+          </button>
+          <a class="navbar-brand" id="ATClogo" href="index.html">
+            <img
+              src="./BrandPics/ATClogo.png"
+              alt="ATClogo"
+              width="98.6"
+              height="58.91"
+            />
+          </a>
+        </div>
+        <div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+          <ul
+            class="nav navbar-nav navbar-right"
+            data-in="fadeInDown"
+            data-out="fadeOutUp"
+          >
+            <li class="scroll active"><a href="#home">Home</a></li>
+            <li class="scroll"><a href="#service">Services</a></li>
+            <li class="scroll">
+              <a href="#featured-cars">Featured Products</a>
+            </li>
+            <li class="scroll"><a href="#new-cars">Best Sellers</a></li>
+            <li class="scroll"><a href="#brand">Brands</a></li>
+            <li class="scroll"><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Enter Serial Number or Product Name"
+        onkeyup="filterProducts()"
+      />
+      <select id="priceFilter" onchange="filterProducts()">
+        <option value="">Sort by Price</option>
+        <option value="low-to-high">Lowest to Highest</option>
+        <option value="high-to-low">Highest to Lowest</option>
+      </select>
+      <button onclick="filterProducts()">Search</button>
+    </div>
+
+    <!-- Product Section -->
+    <section id="featured-cars" class="featured-cars">
+      <div class="container">
+        <div class="section-header">
+          <p>Check Out Our <span>Products</span></p>
+          <h2>Store</h2>
+        </div>
+        <div class="featured-cars-content" id="productContainer">
+          <div class="row">
+            <!-- Start of Product 1 -->
+            <div
+              class="col-lg-3 col-md-4 col-sm-6 product"
+              data-serial="123456"
+              data-name="AUTEL MaxiCOM MS906"
+              data-price="12000"
+            >
+              <a href="Products/AUTEL MaxiCOM MS906.html">
+                <div class="single-featured-cars">
+                  <div class="featured-img-box">
+                    <img
+                      src="./BrandPics/1_ca21839a-cad7-4c2b-b268-ac40611a9d76_640x.webp"
+                      alt="AUTEL MaxiCOM MS906"
+                    />
+                  </div>
+                  <div class="featured-model-info">
+                    <p><span>SN: 123456</span></p>
+                  </div>
+                  <div class="featured-cars-txt">
+                    <h2>AUTEL MaxiCOM MS906</h2>
+                    <h3>₪12,000</h3>
+                    <p>
+                      Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+                      amet, consectetur, adipisci velit, sed quia non.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- End of Product 1 -->
+
+            <!-- Start of Product 2 -->
+            <div
+              class="col-lg-3 col-md-4 col-sm-6 product"
+              data-serial="123457"
+              data-name="LAUNCH X-431 PRO S V5"
+              data-price="6500"
+            >
+              <a href="Products/LAUNCH X-431 PRO S V5.html">
+                <div class="single-featured-cars">
+                  <div class="featured-img-box">
+                    <img
+                      src="./BrandPics/X431PROSv5.png"
+                      alt="LAUNCH X-431 PRO S V5"
+                    />
+                  </div>
+                  <div class="featured-model-info">
+                    <p><span>SN: 123457</span></p>
+                  </div>
+                  <div class="featured-cars-txt">
+                    <h2>LAUNCH X-431 <span>PRO S V5</span></h2>
+                    <h3>₪6,500</h3>
+                    <p>
+                      Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+                      amet, consectetur, adipisci velit, sed quia non.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- End of Product 2 -->
+
+            <!-- Start of Product 3 -->
+            <div
+              class="col-lg-3 col-md-4 col-sm-6 product"
+              data-serial="123458"
+              data-name="VCDS"
+              data-price="3250"
+            >
+              <a href="Products/VCDS.html">
+                <div class="single-featured-cars">
+                  <div class="featured-img-box">
+                    <img
+                      src="./BrandPics/VCDS with HEX-V2 Enthusiast - USB Interface (10 VINs) 2022-12-28 13-58-35.webp"
+                      alt="VCDS"
+                    />
+                  </div>
+                  <div class="featured-model-info">
+                    <p><span>SN: 123458</span></p>
+                  </div>
+                  <div class="featured-cars-txt">
+                    <h2>VCDS</h2>
+                    <h3>₪3,250</h3>
+                    <p>
+                      Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+                      amet, consectetur, adipisci velit, sed quia non.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- End of Product 3 -->
+
+            <!-- Start of Product 4 -->
+            <div
+              class="col-lg-3 col-md-4 col-sm-6 product"
+              data-serial="123459"
+              data-name="AUTEL MaxiSYS MS909"
+              data-price="12000"
+            >
+              <a href="Products/MaxiSYS MS909.html">
+                <div class="single-featured-cars">
+                  <div class="featured-img-box">
+                    <img
+                      src="./BrandPics/maxisys-909-vci.webp"
+                      alt="AUTEL MaxiSYS MS909"
+                    />
+                  </div>
+                  <div class="featured-model-info">
+                    <p><span>SN: 123459</span></p>
+                  </div>
+                  <div class="featured-cars-txt">
+                    <h2>AUTEL MaxiSYS <span>MS909</span></h2>
+                    <h3>₪12,000</h3>
+                    <p>
+                      Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+                      amet, consectetur, adipisci velit, sed quia non.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- End of Product 4 -->
+
+            <!-- Start of Product 5 -->
+            <div
+              class="col-lg-3 col-md-4 col-sm-6 product"
+              data-serial="123460"
+              data-name="Zenith z5"
+              data-price="7000"
+            >
+              <a href="Products/Zenith z5.html">
+                <div class="single-featured-cars">
+                  <div class="featured-img-box">
+                    <img src="./BrandPics/zenith z5.webp" alt="Zenith z5" />
+                  </div>
+                  <div class="featured-model-info">
+                    <p><span>SN: 123460</span></p>
+                  </div>
+                  <div class="featured-cars-txt">
+                    <h2>Zenith <span>z5</span></h2>
+                    <h3>₪7,000</h3>
+                    <p>
+                      Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+                      amet, consectetur, adipisci velit, sed quia non.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- End of Product 5 -->
+
+            <!-- Start of Product 6 -->
+            <div
+              class="col-lg-3 col-md-4 col-sm-6 product"
+              data-serial="123461"
+              data-name="OBDeleven"
+              data-price="1100"
+            >
+              <a href="Products/OBDeleven.html">
+                <div class="single-featured-cars">
+                  <div class="featured-img-box">
+                    <img src="./BrandPics/OBDeleven.png" alt="OBDeleven" />
+                  </div>
+                  <div class="featured-model-info">
+                    <p><span>SN: 123461</span></p>
+                  </div>
+                  <div class="featured-cars-txt">
+                    <h2>OBDeleven</h2>
+                    <h3>₪1,100</h3>
+                    <p>
+                      Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+                      amet, consectetur, adipisci velit, sed quia non.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- End of Product 6 -->
+
+            <!-- Start of Product 7 -->
+            <div
+              class="col-lg-3 col-md-4 col-sm-6 product"
+              data-serial="123462"
+              data-name="Mercedes-Benz C6 VCI"
+              data-price="13200"
+            >
+              <a href="Products/Mercedes-Benz C6 VCI.html">
+                <div class="single-featured-cars">
+                  <div class="featured-img-box">
+                    <img
+                      src="./BrandPics/VCI C6.jfif"
+                      alt="Mercedes-Benz C6 VCI"
+                    />
+                  </div>
+                  <div class="featured-model-info">
+                    <p><span>SN: 123462</span></p>
+                  </div>
+                  <div class="featured-cars-txt">
+                    <h2>Mercedes-Benz C6 VCI</h2>
+                    <h3>₪13,200</h3>
+                    <p>
+                      Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+                      amet, consectetur, adipisci velit, sed quia non.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- End of Product 7 -->
+
+            <!-- Start of Product 8 -->
+            <div
+              class="col-lg-3 col-md-4 col-sm-6 product"
+              data-serial="123463"
+              data-name="autocom Cars/Trucks"
+              data-price="1100"
+            >
+              <a href="Products/autocom Cars Trucks.html">
+                <div class="single-featured-cars">
+                  <div class="featured-img-box">
+                    <img src="./BrandPics/cdp+.jpg" alt="autocom Cars/Trucks" />
+                  </div>
+                  <div class="featured-model-info">
+                    <p><span>SN: 123463</span></p>
+                  </div>
+                  <div class="featured-cars-txt">
+                    <h2>autocom Cars/Trucks</h2>
+                    <h3>₪1,100</h3>
+                    <p>
+                      Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+                      amet, consectetur, adipisci velit, sed quia non.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- End of Product 8 -->
+
+            <!-- Start of Product 9 -->
+            <div
+              class="col-lg-3 col-md-4 col-sm-6 product"
+              data-serial="333444555"
+              data-name="Super MB6 Pro"
+              data-price="4000"
+            >
+              <a href="Products/Super MB6 Pro.html">
+                <div class="single-featured-cars">
+                  <div class="featured-img-box">
+                    <img src="./BrandPics/zenith z5.webp" alt="Super MB6 Pro" />
+                  </div>
+                  <div class="featured-model-info">
+                    <p><span>SN: 333444555</span></p>
+                  </div>
+                  <div class="featured-cars-txt">
+                    <h2>Super MB6 Pro</h2>
+                    <h3>₪4,000</h3>
+                    <p>
+                      Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+                      amet, consectetur, adipisci velit, sed quia non.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- End of Product 9 -->
+
+            <!-- Start of Product 10 -->
+            <div
+              class="col-lg-3 col-md-4 col-sm-6 product"
+              data-serial="555666777"
+              data-name="FLEX Full Master"
+              data-price="22000"
+            >
+              <a href="Products/FLEX Full Master.html">
+                <div class="single-featured-cars">
+                  <div class="featured-img-box">
+                    <img
+                      src="./BrandPics/OBDeleven.png"
+                      alt="FLEX Full Master"
+                    />
+                  </div>
+                  <div class="featured-model-info">
+                    <p><span>SN: 555666777</span></p>
+                  </div>
+                  <div class="featured-cars-txt">
+                    <h2>FLEX Full Master</h2>
+                    <h3>₪22,000</h3>
+                    <p>
+                      Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+                      amet, consectetur, adipisci velit, sed quia non.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- End of Product 10 -->
+
+            <!-- Start of Product 11 -->
+            <div
+              class="col-lg-3 col-md-4 col-sm-6 product"
+              data-serial="888999000"
+              data-name="AUTEL MaxiTPMS ITS600E"
+              data-price="1900"
+            >
+              <a href="Products/AUTEL MaxiTPMS ITS600E.html">
+                <div class="single-featured-cars">
+                  <div class="featured-img-box">
+                    <img
+                      src="./BrandPics/VCI C6.jfif"
+                      alt="AUTEL MaxiTPMS ITS600E"
+                    />
+                  </div>
+                  <div class="featured-model-info">
+                    <p><span>SN: 888999000</span></p>
+                  </div>
+                  <div class="featured-cars-txt">
+                    <h2>AUTEL MaxiTPMS ITS600E</h2>
+                    <h3>₪1,900</h3>
+                    <p>
+                      Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+                      amet, consectetur, adipisci velit, sed quia non.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- End of Product 11 -->
+
+            <!-- Start of Product 12 -->
+            <div
+              class="col-lg-3 col-md-4 col-sm-6 product"
+              data-serial="999000111"
+              data-name="GM MDI 2"
+              data-price="2500"
+            >
+              <a href="Products/GM MDI 2.html">
+                <div class="single-featured-cars">
+                  <div class="featured-img-box">
+                    <img src="./BrandPics/cdp+.jpg" alt="GM MDI 2" />
+                  </div>
+                  <div class="featured-model-info">
+                    <p><span>SN: 999000111</span></p>
+                  </div>
+                  <div class="featured-cars-txt">
+                    <h2>GM MDI 2</h2>
+                    <h3>₪2,500</h3>
+                    <p>
+                      Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+                      amet, consectetur, adipisci velit, sed quia non.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- End of Product 12 -->
+
+            <!-- Start of Product 13 -->
+            <div
+              class="col-lg-3 col-md-4 col-sm-6 product"
+              data-serial="101112131"
+              data-name="MBito"
+              data-price="1600"
+            >
+              <a href="Products/MBito.html">
+                <div class="single-featured-cars">
+                  <div class="featured-img-box">
+                    <img src="./BrandPics/zenith z5.webp" alt="MBito" />
+                  </div>
+                  <div class="featured-model-info">
+                    <p><span>SN: 101112131</span></p>
+                  </div>
+                  <div class="featured-cars-txt">
+                    <h2>MBito</h2>
+                    <h3>₪1,600</h3>
+                    <p>
+                      Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+                      amet, consectetur, adipisci velit, sed quia non.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- End of Product 13 -->
+
+            <!-- Start of Product 14 -->
+            <div
+              class="col-lg-3 col-md-4 col-sm-6 product"
+              data-serial="141516171"
+              data-name="Mercedes-Benz C4 VCI"
+              data-price="6400"
+            >
+              <a href="Products/Mercedes-Benz C4 VCI.html">
+                <div class="single-featured-cars">
+                  <div class="featured-img-box">
+                    <img
+                      src="./BrandPics/OBDeleven.png"
+                      alt="Mercedes-Benz C4 VCI"
+                    />
+                  </div>
+                  <div class="featured-model-info">
+                    <p><span>SN: 141516171</span></p>
+                  </div>
+                  <div class="featured-cars-txt">
+                    <h2>Mercedes-Benz C4 VCI</h2>
+                    <h3>₪6,400</h3>
+                    <p>
+                      Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+                      amet, consectetur, adipisci velit, sed quia non.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- End of Product 14 -->
+
+            <!-- Start of Product 15 -->
+            <div
+              class="col-lg-3 col-md-4 col-sm-6 product"
+              data-serial="181920212"
+              data-name="JDiag MOTOSCAN"
+              data-price="2800"
+            >
+              <a href="Products/JDiag MOTOSCAN.html">
+                <div class="single-featured-cars">
+                  <div class="featured-img-box">
+                    <img src="./BrandPics/VCI C6.jfif" alt="JDiag MOTOSCAN" />
+                  </div>
+                  <div class="featured-model-info">
+                    <p><span>SN: 181920212</span></p>
+                  </div>
+                  <div class="featured-cars-txt">
+                    <h2>JDiag MOTOSCAN</h2>
+                    <h3>₪2,800</h3>
+                    <p>
+                      Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+                      amet, consectetur, adipisci velit, sed quia non.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- End of Product 15 -->
+
+            <!-- Start of Product 16 -->
+            <div
+              class="col-lg-3 col-md-4 col-sm-6 product"
+              data-serial="222324252"
+              data-name="AUTEL MaxiBAS BT608"
+              data-price="1400"
+            >
+              <a href="Products/AUTEL MaxiBAS BT608.html">
+                <div class="single-featured-cars">
+                  <div class="featured-img-box">
+                    <img src="./BrandPics/cdp+.jpg" alt="AUTEL MaxiBAS BT608" />
+                  </div>
+                  <div class="featured-model-info">
+                    <p><span>SN: 222324252</span></p>
+                  </div>
+                  <div class="featured-cars-txt">
+                    <h2>AUTEL MaxiBAS BT608</h2>
+                    <h3>₪1,400</h3>
+                    <p>
+                      Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+                      amet, consectetur, adipisci velit, sed quia non.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- End of Product 16 -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      window.onload = generateUniqueSerialNumbers;
+
+      function filterProducts() {
+        const searchInput = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const priceFilter = document.getElementById("priceFilter").value;
+        const products = Array.from(document.querySelectorAll(".product"));
+
+        let filteredProducts = products.filter((product) => {
+          const serial = product.getAttribute("data-serial").toLowerCase();
+          const name = product.getAttribute("data-name").toLowerCase();
+          return serial.includes(searchInput) || name.includes(searchInput);
+        });
+
+        if (priceFilter === "low-to-high") {
+          filteredProducts.sort(
+            (a, b) =>
+              parseFloat(a.getAttribute("data-price")) -
+              parseFloat(b.getAttribute("data-price"))
+          );
+        } else if (priceFilter === "high-to-low") {
+          filteredProducts.sort(
+            (a, b) =>
+              parseFloat(b.getAttribute("data-price")) -
+              parseFloat(a.getAttribute("data-price"))
+          );
+        }
+
+        const productContainer = document.getElementById("productContainer");
+        productContainer.innerHTML = '<div class="row"></div>';
+        const row = productContainer.querySelector(".row");
+        filteredProducts.forEach((product) => {
+          row.appendChild(product);
+          product.style.display = "block";
+        });
+      }
+    </script>
+  </body>
+</html>

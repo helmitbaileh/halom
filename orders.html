@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orders</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar {
+      background-color: #232f3e;
+      padding: 10px;
+      overflow: hidden;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar .logo {
+      color: #fff;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .navbar ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    .navbar ul li {
+      margin-left: 20px;
+    }
+
+    .navbar ul li a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+
+    .navbar ul li a:hover {
+      background-color: #37475a;
+      border-radius: 5px;
+    }
+
+    .container {
+      width: 80%;
+      margin: 30px auto;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    .orders-page h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .order {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .order:hover {
+      transform: translateY(-5px);
+    }
+
+    .order h2 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .order p {
+      margin: 5px 0;
+      color: #666;
+    }
+
+    .view-order-btn,
+    .delete-order-btn {
+      background-color: #1c84f6;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .view-order-btn:hover {
+      background-color: #1561b3;
+    }
+
+    .delete-order-btn {
+      background-color: #f24646;
+    }
+
+    .delete-order-btn:hover {
+      background-color: #cc3838;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 50%;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+    }
+
+    .modal-content p {
+      margin: 10px 0;
+      color: #666;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .delete-order-btn,
+    .archive-order-btn {
+      background-color: #f24646;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-left: 10px;
+    }
+
+    .archive-order-btn {
+      background-color: #34c759;
+    }
+
+    .archive-order-btn:hover {
+      background-color: #28a745;
+    }
+
+    .delete-order-btn:hover {
+      background-color: #cc3838;
+    }
+  </style>
+  <body>
+    <div class="navbar">
+      <div class="logo">
+        <img
+          src="./BrandPics/ATClogo.png"
+          alt="My Store Logo"
+          style="height: 50px"
+        />
+      </div>
+      <ul>
+        <li><a href="archive.html">Archive</a></li>
+      </ul>
+    </div>
+
+    <div class="container orders-page">
+      <h1>Orders</h1>
+      <div id="orders-list"></div>
+    </div>
+
+    <div id="orderModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="order-details"></div>
+      </div>
+    </div>
+
+    <script type="module">
+      import {
+        getFirestore,
+        collection,
+        getDocs,
+        deleteDoc,
+        doc,
+        setDoc,
+      } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBL7MOIEE8K1UgZTG_j-6-VM0JzlD_7BS0",
+        authDomain: "ecomers-dd329.firebaseapp.com",
+        projectId: "ecomers-dd329",
+        storageBucket: "ecomers-dd329.appspot.com",
+        messagingSenderId: "190646144215",
+        appId: "1:190646144215:web:d55f24091a920f92b6b492",
+        measurementId: "G-NVYK3DZR00",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      async function fetchOrders() {
+        const ordersList = document.getElementById("orders-list");
+        ordersList.innerHTML = "";
+        try {
+          const querySnapshot = await getDocs(collection(db, "orders"));
+          querySnapshot.forEach((doc) => {
+            const order = doc.data();
+            const orderId = doc.id;
+            const orderDiv = document.createElement("div");
+            orderDiv.classList.add("order");
+
+            const viewButton = document.createElement("button");
+            viewButton.textContent = "View Details";
+            viewButton.classList.add("view-order-btn");
+
+            const archiveButton = document.createElement("button");
+            archiveButton.textContent = "Archive Order";
+            archiveButton.classList.add("archive-order-btn");
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete Order";
+            deleteButton.classList.add("delete-order-btn");
+
+            orderDiv.innerHTML = `
+              <h2>Order from: ${order.name}</h2>
+              <p>Total: ${order.totalPrice} ₪</p>
+            `;
+
+            orderDiv.appendChild(viewButton);
+            orderDiv.appendChild(archiveButton);
+            orderDiv.appendChild(deleteButton);
+            ordersList.appendChild(orderDiv);
+
+            viewButton.addEventListener("click", () =>
+              openModal(order, orderId)
+            );
+
+            archiveButton.addEventListener("click", () =>
+              archiveOrder(order, orderId)
+            );
+
+            deleteButton.addEventListener("click", () => deleteOrder(orderId));
+          });
+        } catch (error) {
+          console.error("Error fetching orders:", error);
+          ordersList.innerHTML = `<p>An error occurred while fetching orders. Please try again later.</p>`;
+        }
+      }
+
+      async function archiveOrder(order, orderId) {
+        try {
+          await setDoc(doc(db, "archivedOrders", orderId), order);
+          await deleteDoc(doc(db, "orders", orderId));
+          alert("Order archived successfully!");
+          fetchOrders();
+        } catch (error) {
+          console.error("Error archiving order:", error);
+          alert(
+            "An error occurred while archiving the order. Please try again later."
+          );
+        }
+      }
+
+      async function deleteOrder(orderId) {
+        try {
+          await deleteDoc(doc(db, "orders", orderId));
+          alert("Order deleted successfully!");
+          fetchOrders();
+        } catch (error) {
+          console.error("Error deleting order:", error);
+          alert(
+            "An error occurred while deleting the order. Please try again later."
+          );
+        }
+      }
+
+      function openModal(order, orderId) {
+        const modal = document.getElementById("orderModal");
+        const orderDetails = document.getElementById("order-details");
+
+        orderDetails.innerHTML = `
+          <h2>Name: ${order.name}</h2>
+          <p>Address: ${order.address}</p>
+          <p>Phone: ${order.phone}</p>
+          <p>Email: ${order.email}</p>
+          <h3>Products:</h3>
+          <ul id="items-${orderId}"></ul>
+          <p>Total: ${order.totalPrice} ₪</p>
+        `;
+
+        const itemsList = orderDetails.querySelector(`#items-${orderId}`);
+        if (Array.isArray(order.items)) {
+          order.items.forEach((item) => {
+            const li = document.createElement("li");
+            li.textContent = `${item.name} - ${item.price} ₪`;
+            itemsList.appendChild(li);
+          });
+        } else {
+          const li = document.createElement("li");
+          li.textContent = "No products in this order";
+          itemsList.appendChild(li);
+        }
+
+        modal.style.display = "flex";
+      }
+
+      const modal = document.getElementById("orderModal");
+      const closeButton = document.querySelector(".close");
+      closeButton.onclick = () => {
+        modal.style.display = "none";
+      };
+      window.onclick = (event) => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      fetchOrders();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Style for aligning the logo and the navbar items */
+/* Style for aligning the logo and the navbar items */
+.navbar-header {
+  display: flex;
+  align-items: center;
+}
+
+#ATClogo img {
+  vertical-align: middle;
+  height: 58px; /* Adjust the height */
+  margin: 0; /* Remove any additional margin */
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-nav li {
+  list-style: none;
+  padding: 10px 15px;
+}
+
+.navbar-nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.navbar {
+  background-color: #2a2d54; /* Same color as the background */
+  padding: 10px 0; /* Adjust padding to reduce space */
+}
+
+.navbar-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+
+      .cart-container {
+        width: 80%;
+        margin: 30px auto;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .cart-page h1 {
+        text-align: center;
+        color: #333;
+      }
+
+      #cart-items li {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      #cart-items li input[type="number"] {
+        width: 50px;
+        text-align: center;
+      }
+
+      .delete-btn {
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+
+      .cart-page p {
+        text-align: right;
+        font-size: 18px;
+      }
+
+      form {
+        margin-top: 20px;
+      }
+
+      form label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      form input,
+      form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      form button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+
+      form button:hover {
+        background-color: #218838;
+      }
+    </style>
+  </head>
+  <body>   
+
+    <div class="cart-container cart-page">
+      <h1>Shopping Cart</h1>
+      <ul id="cart-items"></ul>
+      <p>Total: <span id="total-price">0</span> NIS</p>
+
+      <h2>Checkout</h2>
+      <form id="checkoutForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required /><br />
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required /><br />
+
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" required /><br />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required /><br />
+
+        <label for="note">Note:</label>
+        <textarea id="note" name="note"></textarea><br />
+
+        <button type="submit">Submit Order</button>
+      </form>
+    </div>
+
+    <script type="module">
+      import {
+        getFirestore,
+        collection,
+        addDoc,
+      } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBL7MOIEE8K1UgZTG_j-6-VM0JzlD_7BS0",
+        authDomain: "ecomers-dd329.firebaseapp.com",
+        projectId: "ecomers-dd329",
+        storageBucket: "ecomers-dd329.appspot.com",
+        messagingSenderId: "190646144215",
+        appId: "1:190646144215:web:d55f24091a920f92b6b492",
+        measurementId: "G-NVYK3DZR00",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      const cartItems = document.getElementById("cart-items");
+      const totalPriceElem = document.getElementById("total-price");
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      function renderCart() {
+        cartItems.innerHTML = "";
+        let totalPrice = 0;
+
+        cart.forEach((item, index) => {
+          const li = document.createElement("li");
+          li.innerHTML = `
+            ${item.name} - ${item.price} NIS
+            <input type="number" value="${
+              item.quantity || 1
+            }" min="1" data-index="${index}" />
+            <button class="delete-btn" data-index="${index}">Delete</button>
+          `;
+          cartItems.appendChild(li);
+          totalPrice += item.price * (item.quantity || 1);
+        });
+
+        totalPriceElem.textContent = totalPrice;
+      }
+
+      renderCart();
+
+      cartItems.addEventListener("click", (e) => {
+        if (e.target.classList.contains("delete-btn")) {
+          const index = e.target.getAttribute("data-index");
+          cart.splice(index, 1);
+          localStorage.setItem("cart", JSON.stringify(cart));
+          renderCart();
+        }
+      });
+
+      cartItems.addEventListener("input", (e) => {
+        if (e.target.type === "number") {
+          const index = e.target.getAttribute("data-index");
+          const newQuantity = parseInt(e.target.value);
+          cart[index].quantity = newQuantity;
+          localStorage.setItem("cart", JSON.stringify(cart));
+          renderCart();
+        }
+      });
+
+      document
+        .getElementById("checkoutForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const name = document.getElementById("name").value;
+          const address = document.getElementById("address").value;
+          const phone = document.getElementById("phone").value;
+          const email = document.getElementById("email").value;
+          const note = document.getElementById("note").value;
+
+          try {
+            await addDoc(collection(db, "orders"), {
+              name: name,
+              address: address,
+              phone: phone,
+              email: email,
+              note: note,
+              items: cart,
+              totalPrice: parseFloat(totalPriceElem.textContent),
+              timestamp: new Date(),
+            });
+
+            localStorage.removeItem("cart");
+            alert("Order submitted successfully!");
+            renderCart();
+          } catch (error) {
+            console.error("Error submitting the order:", error);
+          }
+        });
+    </script>
+  </body>
+</html>

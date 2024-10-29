@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navbar {
+        background-color: #232f3e;
+        padding: 10px;
+        overflow: hidden;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar .logo {
+        color: #fff;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+
+      .navbar ul li {
+        margin-left: 20px;
+      }
+
+      .navbar ul li a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        font-size: 16px;
+      }
+
+      .navbar ul li a:hover {
+        background-color: #37475a;
+        border-radius: 5px;
+      }
+
+      .container {
+        width: 80%;
+        margin: 50px auto;
+        background-color: white;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-wrap: wrap;
+        border-radius: 10px;
+      }
+
+      .product-image-section {
+        flex: 1;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .product-image {
+        max-width: 350px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+      }
+
+      .product-details-section {
+        flex: 2;
+        padding: 20px;
+      }
+
+      .product-details-section h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      .product-details-section p {
+        font-size: 18px;
+        color: #666;
+        margin-bottom: 15px;
+      }
+
+      .product-price {
+        color: #b12704;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      #add-to-cart {
+        background-color: #f0c14b;
+        color: #333;
+      }
+
+      #add-to-cart:hover {
+        background-color: #ddb347;
+      }
+
+      #buy-now {
+        background-color: #ff9900;
+        color: white;
+      }
+
+      #buy-now:hover {
+        background-color: #e68a00;
+      }
+
+      .quantity-section {
+        margin-bottom: 20px;
+      }
+
+      .quantity-section label {
+        font-size: 18px;
+        margin-right: 10px;
+      }
+
+      .quantity-section select {
+        padding: 5px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="logo">
+        <img src="ATClogo.png" alt="My Store Logo" style="height: 50px" />
+      </div>
+      <ul>
+        <li><a href="../index">Home</a></li>
+        <li><a href="cart.html">Cart</a></li>
+      </ul>
+    </div>
+    <div class="container product-page">
+      <div class="product-image-section">
+        <img src="LAUNCH_PROS_V_5.0_3-1000x1000.jpg" width="200" height="200" />
+      </div>
+      <div class="product-details-section">
+        <h1>Super MB6 Pro</h1>
+        <p>
+          This amazing product provides you with everything you need for comfort
+          and style.
+        </p>
+        <p class="product-price">₪4,000</p>
+
+        <div class="quantity-section">
+          <label for="quantity">Quantity:</label>
+          <select id="quantity">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+
+        <div class="btn-group">
+          <button id="add-to-cart" class="btn">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      const product = {
+        name: "Super MB6 Pro",
+        price: 4000,
+      };
+
+      document.getElementById("add-to-cart").addEventListener("click", () => {
+        const quantity = parseInt(document.getElementById("quantity").value);
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        for (let i = 0; i < quantity; i++) {
+          cart.push(product);
+        }
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert("Product added to cart");
+      });
+    </script>
+  </body>
+</html>
